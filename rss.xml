@@ -2,19 +2,19 @@
 <rss version="2.0">
 <channel>
   <title>David Garcia Blog</title>
-  <link>https://joegar000.github.io/davidgarcia</link>
+  <link>https://joegar000.github.io</link>
   <description>Posts from David Garcia</description>
   <item>
     <title>UX Considerations</title>
-    <link>https://joegar000.github.io/davidgarcia/#/blog/ux-considerations</link>
-    <guid>https://joegar000.github.io/davidgarcia/#/blog/ux-considerations</guid>
+    <link>https://joegar000.github.io/#/blog/ux-considerations</link>
+    <guid>https://joegar000.github.io/#/blog/ux-considerations</guid>
     <pubDate>Fri, 17 Nov 2023 00:00:00 GMT</pubDate>
     <description>One rule of thumb for creating applications that provide a positive user experience.</description>
   </item>
   <item>
     <title>A Little About Myself</title>
-    <link>https://joegar000.github.io/davidgarcia/#/blog/a-little-about-myself</link>
-    <guid>https://joegar000.github.io/davidgarcia/#/blog/a-little-about-myself</guid>
+    <link>https://joegar000.github.io/#/blog/a-little-about-myself</link>
+    <guid>https://joegar000.github.io/#/blog/a-little-about-myself</guid>
     <pubDate>Mon, 12 Jun 2023 00:00:00 GMT</pubDate>
     <description>My first blog post!</description>
   </item>
