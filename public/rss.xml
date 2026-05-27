@@ -1,26 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0">
-    <channel>
-        <title>David Garcia</title>
-        <link>https://joegar000.github.io/davidgarcia/</link>
-        <description>The personal blog of David Garcia</description>
-        <lastBuildDate>Sat, 18 Nov 2023 05:33:25 GMT</lastBuildDate>
-        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
-        <generator>https://github.com/jpmonette/feed</generator>
-        <copyright>David Garcia</copyright>
-        <item>
-            <title><![CDATA[A Little About Myself]]></title>
-            <link>https://joegar000.github.io/davidgarcia/#/blog/1</link>
-            <guid>https://joegar000.github.io/davidgarcia/#/blog/1</guid>
-            <pubDate>Mon, 12 Jun 2023 05:00:00 GMT</pubDate>
-            <description><![CDATA[My first blog post!]]></description>
-        </item>
-        <item>
-            <title><![CDATA[UX Considerations]]></title>
-            <link>https://joegar000.github.io/davidgarcia/#/blog/2</link>
-            <guid>https://joegar000.github.io/davidgarcia/#/blog/2</guid>
-            <pubDate>Fri, 17 Nov 2023 06:00:00 GMT</pubDate>
-            <description><![CDATA[One rule of thumb for creating applications that provide a positive user experience.]]></description>
-        </item>
-    </channel>
+<channel>
+  <title>David Garcia Blog</title>
+  <link>https://joegar000.github.io/davidgarcia</link>
+  <description>Posts from David Garcia</description>
+  <item>
+    <title>UX Considerations</title>
+    <link>https://joegar000.github.io/davidgarcia/#/blog/ux-considerations</link>
+    <guid>https://joegar000.github.io/davidgarcia/#/blog/ux-considerations</guid>
+    <pubDate>Fri, 17 Nov 2023 00:00:00 GMT</pubDate>
+    <description>One rule of thumb for creating applications that provide a positive user experience.</description>
+  </item>
+  <item>
+    <title>A Little About Myself</title>
+    <link>https://joegar000.github.io/davidgarcia/#/blog/a-little-about-myself</link>
+    <guid>https://joegar000.github.io/davidgarcia/#/blog/a-little-about-myself</guid>
+    <pubDate>Mon, 12 Jun 2023 00:00:00 GMT</pubDate>
+    <description>My first blog post!</description>
+  </item>
+</channel>
 </rss>

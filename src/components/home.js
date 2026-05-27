@@ -1,28 +1,36 @@
 import imgMe from "../me.jpg";
+import { siteConfig } from "../siteConfig";
 
 export function Home() {
     return (
-        <div>
-            <div className="text-center pt-5 px-2">
-                <span className="m-auto display-6">Hello! My name is David. I'm a software developer.</span>
+        <section className="row align-items-center g-5">
+            <div className="col-12 col-lg-7">
+                <p className="eyebrow">About Me</p>
+                <p className="fs-4 lh-lg">{siteConfig.headline}</p>
+                <div>
+                    {siteConfig.description.map((paragraph) => (
+                        <p key={paragraph}>{paragraph}</p>
+                    ))}
+                </div>
+                <div className="d-flex flex-wrap gap-2 mt-4" aria-label="External links">
+                    {siteConfig.externalLinks.map((link) => (
+                        <a
+                            key={link.href}
+                            className="btn btn-outline-primary"
+                            href={link.href}
+                            target={link.href.startsWith("http") ? "_blank" : undefined}
+                            rel={link.href.startsWith("http") ? "noreferrer" : undefined}
+                        >
+                            {link.label}
+                        </a>
+                    ))}
+                </div>
             </div>
-            <div className="row p-2 pt-5">
-                <div className="col-12 col-lg d-flex pt-md-5 px-lg-5 flex-column">
-                    <p className="px-sm-5" style={{ fontSize: '1.5rem' }}>
-                        Welcome to my personal website! Here's where I post my ideas, reflections, projects, and anything I feel inclined to write about!
-                    </p>
-                    <p className="px-sm-5" style={{ fontSize: '1.5rem' }}>
-                        My programming journey began in 2018 when I started college. Since then, I've gotten my bachelors in computer science,
-                        had two internships, and started working full-time.
-                    </p>
-                </div>
-                <div className="col d-none d-lg-flex justify-content-center">
-                    <img src={imgMe} className="rounded-5" style={{ maxWidth: '50%', height: 'auto', objectFit: 'cover', aspectRatio: 1 }}></img>
-                </div>
-                <div className="col d-flex d-lg-none justify-content-center pt-5 pb-5">
-                    <img src={imgMe} style={{ maxWidth: '50%', height: 'auto', objectFit: 'cover', borderRadius: '100%' }}></img>
-                </div>
+            <div className="col-12 col-md-5 d-flex justify-content-center">
+                <img src={imgMe} className="img-fluid rounded shadow portrait-image" alt={siteConfig.portraitAlt}
+                    style={{ maxWidth: 300 }}
+                />
             </div>
-        </div>
+        </section>
     );
 }

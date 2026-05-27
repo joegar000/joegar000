@@ -1,50 +1,36 @@
-import { useState } from "react";
-import { Paging } from "./paging";
-import { useLoaderData } from "react-router-dom";
+import { projects } from "../siteConfig";
 
 export function Projects() {
-    const [{ projects }] = useState(useLoaderData());
-    const [resultsNum, setResultsNum] = useState(Math.min(4, projects.length));
-    const [pageNum, setPageNum] = useState(0);
-
-    const resultsStart = pageNum * resultsNum * 3;
-    const projectsToRender = projects.slice(resultsStart, resultsStart + resultsNum * 3).reverse();
-    const totalPages = Math.ceil(Math.ceil(projects.length / 3) / resultsNum);
-    if (pageNum > totalPages - 1)
-        setPageNum(totalPages - 1);
     return (
-        <div>
-            <Paging pageNum={pageNum} setPageNum={setPageNum} resultsNum={resultsNum} setResultsNum={setResultsNum}
-                maxPerPage={projects.length} totalPages={totalPages}
-            >
-                <div className="d-flex justify-content-center">
-                    <div className="row">
-                        {projectsToRender.map((project, i) => <div key={i} className="col-md-4 pt-5"><ProjectCard {...project} /></div>)}
-                    </div>
-                </div>
-            </Paging>
-        </div>
+        <section>
+            <div className="mb-4">
+                <p className="eyebrow">Yeah... guess you could say I've done some things</p>
+            </div>
+            <div className="row g-3">
+                {projects.map((project) => <ProjectCard key={project.title} project={project} />)}
+            </div>
+        </section>
     );
 }
 
-export async function projectsLoader() {
-    const data = await fetch('mock-db.json').then(res => res.json());
-    return { projects: data.projects };
-}
-
-export function ProjectCard(props) {
+export function ProjectCard({ project }) {
     return (
-        <div className="card">
-            <div className="card-body">
-                <h5 className="card-title">{props.title}</h5>
-                <h6 className="card-subtitle mb-2 text-body-secondary">Tags: {props.tags.join(', ')}</h6>
-                <p className="card-text">{props.description}</p>
-                {props.links.map((link, i) => {
-                    return (
-                        <a key={i} className="card-link" href={link.link} target="_blank">{link.text}</a>
-                    );
-                })}
-            </div>
+        <div className="col-6 col-md-4">
+            <article className="card h-100">
+                <div className="card-body d-flex flex-column justify-content-between">
+                    <div>
+                        <h2 className="h4 card-title">{project.title}</h2>
+                        <p className="card-text">{project.description}</p>
+                    </div>
+                    <div className="d-flex flex-wrap gap-2 mt-3">
+                        {project.links.map((link) => (
+                            <a key={link.href} className="btn btn-outline-primary" href={link.href} target="_blank" rel="noreferrer">
+                                {link.label}
+                            </a>
+                        ))}
+                    </div>
+                </div>
+            </article>
         </div>
     );
 }

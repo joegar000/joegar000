@@ -1,33 +1,19 @@
-import { useState } from "react";
-import { Document, Page } from "react-pdf";
-import { useLoaderData } from "react-router-dom";
-import { pdfjs } from 'react-pdf';
-import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
-import 'react-pdf/dist/esm/Page/TextLayer.css';
-
-pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
-
 export function Resume() {
-    const [file] = useState(useLoaderData());
-    return (
-        <div className="d-flex justify-content-center my-4">
-            <div className="container overflow-auto">
-                <div className="position-fixed" style={{ zIndex: 1000 }}>
-                    <a className="btn btn-outline-primary d-flex align-items-center" href="resume.pdf" download={true} style={{ aspectRatio: 1, borderRadius: '100%' }}>
-                        <i className="bi bi-download" />
-                    </a>
-                </div>
-                <div className="my-resume mx-auto" style={{ maxWidth: '50em' }}>
-                    <Document className="d-flex justify-content-center overflow-x-auto" file={file}>
-                        <Page pageNumber={1} />
-                    </Document>
-                </div>
-            </div>
-        </div>
-    );
-}
+    const resumeUrl = `${process.env.PUBLIC_URL || ""}/resume.pdf`;
 
-export async function resumeLoader() {
-    const file = await fetch('resume.pdf').then(res => res.blob());
-    return file;
+    return (
+        <section>
+            <div className="d-flex align-items-end justify-content-between gap-3 mb-4 flex-wrap">
+                <div>
+                    <p className="eyebrow">My Ethos</p>
+                </div>
+                <a className="btn btn-outline-primary" href={resumeUrl} download>
+                    Download PDF
+                </a>
+            </div>
+            <div className="border rounded shadow overflow-hidden bg-body-secondary">
+                <iframe className="resume-frame" title="David Garcia resume" src={resumeUrl} />
+            </div>
+        </section>
+    );
 }

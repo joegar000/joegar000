@@ -1,12 +1,19 @@
-import { useState } from "react";
-import { Link, useOutlet, createHashRouter, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { NavLink, Outlet, createHashRouter } from "react-router-dom";
+import './catppuccin.css';
 import './App.css';
 import { Home } from "./components/home";
 import { Blog, BlogPost, postsLoader, postLoader } from "./components/blog";
-import { Projects, projectsLoader } from './components/projects';
+import { Projects } from './components/projects';
 import { Resume } from './components/resume';
-import { resumeLoader } from "./components/resume";
-import { AnimatePresence, motion } from "framer-motion";
+import { sitePages } from "./siteConfig";
+
+const themes = [
+    { id: "latte", label: "Latte" },
+    { id: "frappe", label: "Frappe" },
+    { id: "macchiato", label: "Macchiato" },
+    { id: "mocha", label: "Mocha" }
+];
 
 export const router = createHashRouter([
     {
@@ -29,82 +36,82 @@ export const router = createHashRouter([
             },
             {
                 path: "/projects",
-                loader: projectsLoader,
                 element: <Projects />
             },
             {
                 path: "/resume",
-                loader: resumeLoader,
                 element: <Resume />
             }
         ]
     }
 ]);
 
-function AnimatedOutlet() {
-    const o = useOutlet();
-    const [outlet] = useState(o);
-
-    return <>{outlet}</>;
-};
-
 function App() {
-    const { key } = useLocation();
+    const [theme, setTheme] = useState(() => {
+        try {
+         return JSON.parse(window.localStorage.getItem("catppuccin-theme")) || themes[3];
+        } catch {
+            return themes[3];
+        }
+    });
+
+    useEffect(() => {
+        document.documentElement.dataset.bsTheme = theme.id;
+        delete document.documentElement.dataset.theme;
+        window.localStorage.setItem("catppuccin-theme", JSON.stringify(theme));
+    }, [theme]);
+
     return (
-        <>
-            <Navbar />
-            <AnimatePresence mode="wait">
-                <motion.div className="container mx-auto" key={key}
-                    initial={{ translateY: '5em', opacity: 0 }}
-                    animate={{ translateY: '0', opacity: 1 }}
-                    exit={{ opacity: 0, translateY: '-5em' }}
-                    transition={{ duration: 0.25 }}
-                >
-                    <AnimatedOutlet />
-                </motion.div>
-            </AnimatePresence>
-        </>
+        <div className="min-vh-100">
+            <Navbar theme={theme} setTheme={setTheme} />
+            <main className="container py-5 readable-container">
+                <Outlet />
+            </main>
+        </div>
     );
 }
 
-export function Navbar() {
-    const { pathname } = useLocation();
+export function Navbar({ theme, setTheme }) {
     return (
-        <nav className="navbar navbar-expand-sm bg-body p-3 shadow-sm" style={{ zIndex: 1 }}>
-            <div className="container-fluid">
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#my-navbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id="my-navbar">
-                    <ul className="navbar-nav m-auto">
-                        <li className="nav-item">
-                            <Link to="/"
-                                className={`nav-link navbar-brand${pathname === '/' ? ' disabled' : ''}`}
-                            >
-                                Home
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="/blog" className={`nav-link navbar-brand${pathname === '/blog' ? ' disabled' : ''}`}>Blog</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="/projects"
-                                className={`nav-link navbar-brand${pathname === '/projects' ? ' disabled' : ''}`}
-                            >
-                                Projects
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="/resume"
-                                className={`nav-link navbar-brand${pathname === '/resume' ? ' disabled' : ''}`}
-                            >
-                                Resume
-                            </Link>
-                        </li>
-                    </ul>
+        <header className="sticky-top bg-body">
+            <div className="container nav-wrap">
+                <nav className="nav nav-pills justify-content-center" aria-label="Primary navigation">
+                    <NavLink to="/" end className={({ isActive }) => `nav-link mx-2${isActive ? " active" : ""}`}>
+                        Home
+                    </NavLink>
+                    {sitePages.map((page) => (
+                        <NavLink
+                            key={page.path}
+                            to={page.path}
+                            className={({ isActive }) => `nav-link mx-2${isActive ? " active" : ""}`}
+                        >
+                            {page.label}
+                        </NavLink>
+                    ))}
+                </nav>
+                <div className="justify-self-end" aria-label="Catppuccin theme">
+                    <label className="visually-hidden" htmlFor="theme-select">Theme</label>
+                    <div className="dropdown">
+                        <button id="theme-select" className="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {theme.label}
+                        </button>
+                        <ul className="dropdown-menu">
+                            {themes.map((item) => (
+                                <li key={item.id}>
+                                    <button
+                                        type="button"
+                                        className={`dropdown-item${theme.id === item.id ? " active" : ""}`}
+                                        onClick={() => setTheme(item)}
+                                    >
+                                        {item.label}
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </nav>
+        </header>
     );
 }
 

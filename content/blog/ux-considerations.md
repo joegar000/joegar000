@@ -1,0 +1,19 @@
+---
+title: UX Considerations
+description: One rule of thumb for creating applications that provide a positive user experience.
+date: 2023-11-17
+tags: [design, ux]
+---
+When I was in college, programming assignments were usually "here's a complicated problem, go try to solve it and let us know how it goes". I really liked these kinds of problems. However, now that I've been in an actual software developer position for a while, with most of my time spent working on interactive web applications, I've learned that good software development isn't typically centered around "write a super cool, super fast algorithm that can run on a coffee maker and also solves world hunger", but is actually centered around providing the best user experience possible for the user. (Yes, I am aware that in hindsight this is kind of obvious).
+
+### How is a good user experience crafted?
+
+To illustrate the thought process behind UX development, I'd like to provide a recent example from my job. We are currently in the process of implementing search functionality for our custom content management system. Since most of my experience is related to front end development, I was participating in a meeting related to designing the search bar.
+
+One of the problems we have to solve is: when a user searches for content, how and when do we provide results that we don't already have cached in the web page? We don't want to query the server each time the user types, since that would unnecessarily bog down the server with requests. We decided that while the user is still typing we'll limit the search results to be the top level data we already have on the client.
+
+Now the question becomes: when do we send the query to the server to get all of the detailed results? Should we debounce the search bar (i.e. wait until the user has stopped typing for a second or two and then automatically query the server)? Or should we only send the query after the user takes a specific action (i.e. presses the Enter key in the search bar)? I was initially in favor of debouncing the search bar over waiting for an Enter key press since I didn't see how we could rely on the user knowing to press the Enter key after they've already been provided with the limited set of results. What if they assumed that the limited results set was actually the full result set? Our project lead made a subsequent comment that I think illustrates an experienced UX oriented though process. He said that they probably wouldn't automatically know to press the Enter key to get full search results, but if we provide a button along side the search bar that is colored to draw in the user's attention (a "btn btn-primary" for those familiar with Bootstrap) then that visually indicates that there is some extra action to be taken when searching. The button can even be so obvious as to have the text "Full Results" or something similar.
+
+### Takeaways
+
+I think the lesson learned from this experience is this: Generally speaking, every action that a user can take in a user interface should reveal itself visually. An action may be hidden behind a dropdown, popup, or until after some parent action is taken, but they should be visually discoverable by the user. Adding a button that performs some action feels like a small thing to do, but it is often the case that buttons used in well thought out applications have been, in fact, well thought out. Having been working in software for over a year now, I have created and destroyed countless buttons from the web pages I have worked on. Moving forward, as I continue to created and destroy more buttons, I want to be sure to be intentional in considering the utility behind choosing whether or not to add one. Humans' sense of sight is naturally the one they lean on the most to navigate the world, so it makes sense that they should be able to do so with our applications as well.

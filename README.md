@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+# David Garcia Portfolio
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Small React portfolio with static content, Catppuccin themes, an embedded PDF resume, and Markdown blog publishing.
 
-## Available Scripts
-
-In the project directory, you can run:
+## Scripts
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Runs the app in development mode at [http://localhost:3000](http://localhost:3000).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### `npm run publish:blog`
 
-### `npm test`
+Builds `public/posts.json` and `public/rss.xml` from Markdown files in `content/blog`.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Think of `content/blog` as the source of truth and `public/posts.json` as the generated file the browser reads. You should edit Markdown posts, then let the publish script rewrite the JSON and RSS files.
+
+Each post can use frontmatter:
+
+```md
+---
+title: My Post
+description: A short summary.
+date: 2026-05-25
+tags: [react, notes]
+---
+
+Write the post here.
+```
+
+Obsidian image embeds like `![[diagram.png]]` work when the image is next to the post, under `content/blog/assets`, or referenced with a normal Markdown image path.
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Builds the production site into `build`. The build script publishes the blog first.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### `npm run deploy`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Builds the site and publishes the `build` directory with `gh-pages`.
 
-### `npm run eject`
+## Editing The Site
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Homepage copy, page links, and project data live in `src/siteConfig.js`.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The resume PDF is `public/resume.pdf`. Replace that file to update the embedded resume and download.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+To add a new page later:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. Create a component in `src/components`.
+2. Add a route in `src/App.js`.
+3. Add a page entry in `src/siteConfig.js` if you want it linked from the nav and homepage.
