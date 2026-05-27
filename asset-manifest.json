@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/davidgarcia/static/css/main.4e7e8beb.css",
+    "main.js": "/davidgarcia/static/js/main.fde23026.js",
+    "static/media/me.jpg": "/davidgarcia/static/media/me.481f33e84f2efc007f4f.jpg",
+    "index.html": "/davidgarcia/index.html",
+    "main.4e7e8beb.css.map": "/davidgarcia/static/css/main.4e7e8beb.css.map",
+    "main.fde23026.js.map": "/davidgarcia/static/js/main.fde23026.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4e7e8beb.css",
+    "static/js/main.fde23026.js"
+  ]
+}
